@@ -50,6 +50,10 @@ ifeq ($(BOARD_LEGACY_NL80211_STA_EVENTS),true)
 L_CFLAGS += -DLEGACY_STA_EVENTS
 endif
 
+ifeq ($(BOARD_WEXT_NO_COMBO_SCAN),true)
+L_CFLAGS += -DWEXT_NO_COMBO_SCAN
+endif
+
 # Use Android specific directory for control interface sockets
 L_CFLAGS += -DCONFIG_CTRL_IFACE_CLIENT_DIR=\"/data/misc/wifi/sockets\"
 L_CFLAGS += -DCONFIG_CTRL_IFACE_DIR=\"/data/system/wpa_supplicant\"
@@ -1546,6 +1550,7 @@ LOCAL_STATIC_LIBRARIES := libCustomWifi
 endif
 ifneq ($(BOARD_WPA_SUPPLICANT_PRIVATE_LIB),)
 LOCAL_STATIC_LIBRARIES += $(BOARD_WPA_SUPPLICANT_PRIVATE_LIB)
+L_CFLAGS += -DHAVE_PRIVATE_LIB
 endif
 LOCAL_SHARED_LIBRARIES := libc libcutils liblog
 ifeq ($(CONFIG_TLS), openssl)
